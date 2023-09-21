@@ -6,9 +6,7 @@ with open("./.secret", mode="r") as f:
 openai.api_key = api_key
 
 # print(openai.Model.list())
-response = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[{
+messages = [{
                 "role": "system",
                 "content": 
 """
@@ -45,7 +43,10 @@ Text extracted using OCR:
 {OCRで抽出したテキスト}
 
 """
-              }],
+              }]
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=messages,
 )
 msg = response.choices[0].message
 print(f"{msg.role}: {msg.content}")
